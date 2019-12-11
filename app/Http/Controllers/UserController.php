@@ -14,8 +14,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-      $userTasks = User::find($request->id)->tasks;
-      return view('user.index', compact('userTasks'));
+      $user = new User;
+      $userTasks = $user->find($request->id)->tasks;
+      $userName = $user->find($request->id)->name;
+
+      return view('user.index', compact('userTasks', 'userName'));
     }
 
     /**
