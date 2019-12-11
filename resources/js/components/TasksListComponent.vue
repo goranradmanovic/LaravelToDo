@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Task List from</div>
+                    <div class="card-header">Task List from {{ username }}</div>
 
                     <div class="card-body">
                       <!-- User table -->
@@ -129,10 +129,7 @@
 
   export default {
     name: 'UserListComponent',
-    props: [
-      'tasks',
-      //'username'
-    ],
+    props: ['tasks', 'username'],
     data() {
       return {
         items: [], //Arra of all users
@@ -144,7 +141,7 @@
         infoMessage: '',
         done: '<p class="font-weight-bold font-italic text-success">Done</p>',
         todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>',
-        //username: ''
+        name: ''
       }
     },
 
