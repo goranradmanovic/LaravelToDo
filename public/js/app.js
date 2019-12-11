@@ -2104,8 +2104,6 @@ __webpack_require__.r(__webpack_exports__);
   props: ['tasks', 'username'],
   data: function data() {
     return {
-      items: [],
-      //Arra of all users
       taskId: null,
       //User ID
       form: {
@@ -2115,8 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       infoMessage: '',
       done: '<p class="font-weight-bold font-italic text-success">Done</p>',
-      todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>',
-      name: ''
+      todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>'
     };
   },
   //User name validation
@@ -2132,10 +2129,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    //Gett all users from API
-    getTasks: function getTasks() {
-      this.items = this.tasks;
-    },
     //Set User ID
     setTaskId: function setTaskId(event) {
       this.taskId = event.target.dataset.id;
@@ -2198,9 +2191,6 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     }
-  },
-  mounted: function mounted() {
-    this.getTasks(); //Get list of all user when component is mounted
   }
 });
 
@@ -38085,7 +38075,7 @@ var render = function() {
               _c(
                 "tbody",
                 [
-                  _vm._l(_vm.items, function(item, index) {
+                  _vm._l(_vm.tasks, function(item, index) {
                     return _c("tr", { key: index }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
@@ -38144,7 +38134,7 @@ var render = function() {
                     ])
                   }),
                   _vm._v(" "),
-                  _vm.items.length == 0 ? _c("tr", [_vm._m(2)]) : _vm._e()
+                  _vm.tasks.length == 0 ? _c("tr", [_vm._m(2)]) : _vm._e()
                 ],
                 2
               )
