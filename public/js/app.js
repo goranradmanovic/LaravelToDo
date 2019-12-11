@@ -2115,8 +2115,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       infoMessage: '',
       done: '<p class="font-weight-bold font-italic text-success">Done</p>',
-      todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>',
-      name: ''
+      todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>'
     };
   },
   //User name validation
