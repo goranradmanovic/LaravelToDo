@@ -2101,8 +2101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserListComponent',
-  props: ['tasks' //'username'
-  ],
+  props: ['tasks', 'username'],
   data: function data() {
     return {
       items: [],
@@ -2116,8 +2115,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       infoMessage: '',
       done: '<p class="font-weight-bold font-italic text-success">Done</p>',
-      todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>' //username: ''
-
+      todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>',
+      name: ''
     };
   },
   //User name validation
@@ -38075,7 +38074,9 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [_vm._v("Task List from")]),
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Task List from " + _vm._s(_vm.username))
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("table", { staticClass: "table table-striped" }, [
