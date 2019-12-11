@@ -29,14 +29,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="(item, index) in tasks" :key="index">
+                          <tr v-for="(item, index) in items" :key="index">
                             <td>{{ index + 1 }}</td>
                             <td>{{ item.description }}</td>
                             <td v-html="item.status ? done : todo"></td>
                             <td><button type="button" class="btn btn-primary" :data-id="item.id" :data-desc="item.description" :data-radiobtn="item.status" data-toggle="modal" data-target="#editModal" @click="setTaskId($event), setTaskOldData($event)">Edit</button></td>
                             <td><button type="button" class="btn btn-danger" :data-id="item.id" data-toggle="modal" data-target="#deleteModal" @click="setTaskId($event)">Delete</button></td>
                           </tr>
-                          <tr v-if="tasks.length == 0">
+                          <tr v-if="items.length == 0">
                             <td colspan="5"><strong>No tasks</strong></td>
                           </tr>
                         </tbody>
@@ -132,6 +132,7 @@
     props: ['tasks', 'username'],
     data() {
       return {
+        items: [], //Arra of all users
         taskId: null, //User ID
         form: {
           description: '', //Task description
@@ -139,7 +140,8 @@
         },
         infoMessage: '',
         done: '<p class="font-weight-bold font-italic text-success">Done</p>',
-        todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>'
+        todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>',
+        name: ''
       }
     },
 
@@ -157,6 +159,11 @@
     },
 
     methods: {
+      //Gett all users from API
+      getTasks() {
+          this.items = this.tasks;
+      },
+
       //Set User ID
       setTaskId(event) {
         this.taskId = event.target.dataset.id;
@@ -226,6 +233,10 @@
           });
         }
       }
-    }
+    },
+
+    mounted() {
+      this.getTasks(); //Get list of all user when component is mounted
+    },
   }
 </script>
