@@ -1,5 +1,9 @@
 # ToDo Application
 
+##Install composer.json and package.json
+php composer install
+npm install
+
 ## Run php server (command)
 php artisan serve
 
