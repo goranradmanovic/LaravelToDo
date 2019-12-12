@@ -2098,6 +2098,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserListComponent',
@@ -38088,7 +38091,18 @@ var render = function() {
                     return _c("tr", { key: index }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.description))]),
+                      _c("td", [
+                        _vm._v(
+                          "\n                          " +
+                            _vm._s(item.description) +
+                            " "
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("small", { staticClass: "text-secondary" }, [
+                          _vm._v(_vm._s(item.created_at))
+                        ])
+                      ]),
                       _vm._v(" "),
                       _c("td", {
                         domProps: {
