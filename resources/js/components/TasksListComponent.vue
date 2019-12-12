@@ -31,7 +31,10 @@
                         <tbody>
                           <tr v-for="(item, index) in items" :key="index">
                             <td>{{ index + 1 }}</td>
-                            <td>{{ item.description }}</td>
+                            <td>
+                              {{ item.description }} <br>
+                              <small class="text-secondary">{{ item.created_at }}</small>
+                            </td>
                             <td v-html="item.status ? done : todo"></td>
                             <td><button type="button" class="btn btn-primary" :data-id="item.id" :data-desc="item.description" :data-radiobtn="item.status" data-toggle="modal" data-target="#editModal" @click="setTaskId($event), setTaskOldData($event)">Edit</button></td>
                             <td><button type="button" class="btn btn-danger" :data-id="item.id" data-toggle="modal" data-target="#deleteModal" @click="setTaskId($event)">Delete</button></td>
