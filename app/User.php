@@ -40,6 +40,6 @@ class User extends Authenticatable
     //DB realtion to user tasks (task table)
     public function tasks()
     {
-      return $this->hasMany('App\Task');
+      return $this->hasMany(Task::class);
     }
 }
