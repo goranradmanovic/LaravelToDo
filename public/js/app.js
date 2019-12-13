@@ -1930,20 +1930,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onSubmit: function onSubmit(evt) {
+      var _this = this;
+
       evt.preventDefault();
       this.form.user_id = this.userid; //Add user id to the form data
       //Send call to create task API
 
       axios.post('/api/tasks', this.form).then(function (response) {
-        this.infoMessage = response.data;
-        this.onReset(evt);
-      }.bind(this))["catch"](function (error) {
+        _this.infoMessage = response.data;
+
+        _this.onReset(evt);
+      })["catch"](function (error) {
         console.log(error);
       });
     },
     //Reset the form
     onReset: function onReset(evt) {
-      var _this = this;
+      var _this2 = this;
 
       evt.preventDefault(); // Reset our form values
 
@@ -1953,7 +1956,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.show = false;
       this.$nextTick(function () {
-        _this.show = true;
+        _this2.show = true;
       });
     }
   }
@@ -38210,7 +38213,8 @@ var render = function() {
                     ])
                   }),
                   _vm._v(" "),
-                  _vm.tasks != null && _vm.tasks.length == 0
+                  (_vm.tasks != null && _vm.tasks.length == 0) ||
+                  _vm.tasks != "undefined"
                     ? _c("tr", [_vm._m(2)])
                     : _vm._e(),
                   _vm._v(" "),
@@ -38639,7 +38643,7 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [_vm._v("User List")]),
+          _c("div", { staticClass: "card-header" }, [_vm._v("Users List")]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("table", { staticClass: "table table-striped" }, [
@@ -53137,9 +53141,10 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'; //const API_URL = process.env.API_URL || 'http://localhost:3000/api/v1'
-
-window.axios.defaults.baseURL = 'http://localhost:8000';
+window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+var baseURLDev = 'http://localhost:8000';
+var baseURLPro = 'http://aqueous-ravine-65951.herokuapp.com/';
+window.axios.defaults.baseURL = baseURLPro;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
