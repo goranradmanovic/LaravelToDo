@@ -2101,24 +2101,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserListComponent',
-  props: ['tasks', 'username'],
   data: function data() {
     return {
-      items: [],
-      //Arra of all users
+      tasks: null,
+      //Array of all user tasks
       taskId: null,
+      //Task ID
+      userId: null,
       //User ID
       form: {
         description: '',
         //Task description
-        status: null
+        status: null //Task status
+
       },
       infoMessage: '',
+      //Info message after delete or update
       done: '<p class="font-weight-bold font-italic text-success">Done</p>',
-      todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>'
+      todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>',
+      loader: false,
+      username: null //Name of the user
+
     };
   },
   //User name validation
@@ -2136,34 +2148,44 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     //Gett all users from API
     getTasks: function getTasks() {
-      this.items = this.tasks;
+      this.loader = true;
+      var urlPathname = window.location.pathname.split('/');
+      this.userId = urlPathname[urlPathname.length - 1];
+      return axios.get("api/users/".concat(this.userId)).then(function (response) {
+        return response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
-    //Set User ID
+    //Set Task ID
     setTaskId: function setTaskId(event) {
       this.taskId = event.target.dataset.id;
     },
-    //Set User name
+    setUserName: function setUserName(name) {
+      this.username = name;
+    },
+    //Set task old data
     setTaskOldData: function setTaskOldData(event) {
       this.form.description = event.target.dataset.desc;
-      this.form.status = event.target.dataset.radiobtn == '1' ? true : false;
+      this.form.status = event.target.dataset.radiobtn == 'true' ? true : false;
     },
-    //Delete User from DB
+    //Delete Task from DB
     deleteTask: function deleteTask() {
-      //Check if user ID is set
+      var _this = this;
+
+      //Check if task ID is set
       if (this.taskId) {
         axios["delete"]("api/tasks/".concat(this.taskId)).then(function (response) {
-          var _this = this;
-
           // handle success
-          this.infoMessage = response.data; //Update user UI list
+          _this.infoMessage = response.data; //Update user UI list
 
-          this.items = this.items.filter(function (item) {
+          _this.tasks = _this.tasks.filter(function (item) {
             return item.id != _this.taskId;
           });
-          this.taskId = null; //Set task ID to null
+          _this.taskId = null; //Set task ID to null
 
           $('#deleteModal').modal('hide');
-        }.bind(this))["catch"](function (error) {
+        })["catch"](function (error) {
           // handle error
           console.log(error);
         });
@@ -2171,30 +2193,30 @@ __webpack_require__.r(__webpack_exports__);
     },
     //Edit current user
     editTask: function editTask(event) {
+      var _this2 = this;
+
       event.preventDefault(); //Prevent default form behaivor
       //Check if task ID is set
 
       if (this.taskId) {
         axios.patch("api/tasks/".concat(this.taskId), this.form).then(function (response) {
-          var _this2 = this;
-
           // handle success
-          this.infoMessage = response.data; //Update task UI list
+          _this2.infoMessage = response.data; //Update task UI list
 
-          this.items = this.items.filter(function (item) {
+          _this2.tasks = _this2.tasks.filter(function (item) {
             if (item.id == _this2.taskId) {
               item.description = _this2.form.description;
               item.status = _this2.form.status == 'true' ? true : false;
             }
 
-            return _this2.items;
+            return _this2.tasks;
           });
-          this.taskId = null; //Set task ID to null
+          _this2.taskId = null; //Set task ID to null
 
-          this.form.description = ''; //Set task desc. to empty string
+          _this2.form.description = ''; //Set task desc. to empty string
 
           $('#editModal').modal('hide');
-        }.bind(this))["catch"](function (error) {
+        })["catch"](function (error) {
           // handle error
           console.log(error);
         });
@@ -2202,7 +2224,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.getTasks(); //Get list of all user when component is mounted
+    var _this3 = this;
+
+    this.getTasks().then(function (data) {
+      _this3.tasks = data[0].tasks;
+      _this3.loader = false;
+
+      _this3.setUserName(data[0].name);
+    });
   }
 });
 
@@ -2320,21 +2349,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserListComponent',
-  props: ['users'],
   data: function data() {
     return {
-      items: [],
-      //Arra of all users
+      users: null,
+      //Array of all users
       userId: null,
       //User ID
       form: {
         name: '' //User name
 
       },
-      infoMessage: ''
+      infoMessage: '',
+      loader: false
     };
   },
   //User name validation
@@ -2349,7 +2390,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     //Gett all users from API
     getUsers: function getUsers() {
-      this.items = this.users;
+      this.loader = true;
+      return axios.get('api/users').then(function (response) {
+        return response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     //Set User ID
     setUserId: function setUserId(event) {
@@ -2361,21 +2407,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     //Delete User from DB
     deleteUser: function deleteUser() {
+      var _this = this;
+
       //Check if user ID is set
       if (this.userId) {
         axios["delete"]("api/users/".concat(this.userId)).then(function (response) {
-          var _this = this;
-
           // handle success
-          this.infoMessage = response.data; //Update user UI list
+          _this.infoMessage = response.data; //Update user UI list
 
-          this.items = this.items.filter(function (item) {
+          _this.users = _this.users.filter(function (item) {
             return item.id != _this.userId;
           });
-          this.userId = null; //Set user ID to null
+          _this.userId = null; //Set user ID to null
 
           $('#deleteModal').modal('hide');
-        }.bind(this))["catch"](function (error) {
+        })["catch"](function (error) {
           // handle error
           console.log(error);
         });
@@ -2383,6 +2429,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     //Edit current user
     editUser: function editUser(event) {
+      var _this2 = this;
+
       event.preventDefault(); //Prevent default form behaivor
       //Check if user ID is set
 
@@ -2390,24 +2438,22 @@ __webpack_require__.r(__webpack_exports__);
         axios.patch("api/users/".concat(this.userId), {
           name: this.form.name
         }).then(function (response) {
-          var _this2 = this;
-
           // handle success
-          this.infoMessage = response.data; //Update user UI list
+          _this2.infoMessage = response.data; //Update user UI list
 
-          this.items = this.items.filter(function (item) {
+          _this2.users = _this2.users.filter(function (item) {
             if (item.id == _this2.userId) {
               item.name = _this2.form.name;
             }
 
-            return _this2.items;
+            return _this2.users;
           });
-          this.userId = null; //Set user ID to null
+          _this2.userId = null; //Set user ID to null
 
-          this.form.name = ''; //Set user name to empty string
+          _this2.form.name = ''; //Set user name to empty string
 
           $('#editModal').modal('hide');
-        }.bind(this))["catch"](function (error) {
+        })["catch"](function (error) {
           // handle error
           console.log(error);
         });
@@ -2415,7 +2461,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.getUsers(); //Get list of all user when component is mounted
+    var _this3 = this;
+
+    //Get list of all user when component is mounted
+    this.getUsers().then(function (data) {
+      _this3.users = data;
+      _this3.loader = false;
+    });
   }
 });
 
@@ -38077,7 +38129,8 @@ var render = function() {
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Task List from " + _vm._s(_vm.username))
+            _vm._v("Task List from "),
+            _c("span", { staticClass: "lead" }, [_vm._v(_vm._s(_vm.username))])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -38087,7 +38140,7 @@ var render = function() {
               _c(
                 "tbody",
                 [
-                  _vm._l(_vm.items, function(item, index) {
+                  _vm._l(_vm.tasks, function(item, index) {
                     return _c("tr", { key: index }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
@@ -38157,7 +38210,11 @@ var render = function() {
                     ])
                   }),
                   _vm._v(" "),
-                  _vm.items.length == 0 ? _c("tr", [_vm._m(2)]) : _vm._e()
+                  _vm.tasks != null && _vm.tasks.length == 0
+                    ? _c("tr", [_vm._m(2)])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.loader ? _c("tr", [_vm._m(3)]) : _vm._e()
                 ],
                 2
               )
@@ -38185,9 +38242,9 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
-              _vm._v(" "),
               _vm._m(4),
+              _vm._v(" "),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -38237,7 +38294,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
+              _vm._m(6),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("p", [_vm._v("Do you really want to edit the task?")]),
@@ -38473,6 +38530,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-center", attrs: { colspan: "5" } }, [
+      _c("div", { staticClass: "spinner-border text-info" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
@@ -38572,7 +38637,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
+      _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [_vm._v("User List")]),
           _vm._v(" "),
@@ -38582,65 +38647,73 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.items, function(item, index) {
-                  return _c("tr", { key: index }, [
-                    _c("th", { attrs: { scope: "row" } }, [
-                      _vm._v(_vm._s(index + 1))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        { attrs: { href: "/user-tasks?id=" + item.id } },
-                        [_vm._v(_vm._s(item.name))]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: {
-                            type: "button",
-                            "data-id": item.id,
-                            "data-name": item.name,
-                            "data-toggle": "modal",
-                            "data-target": "#editModal"
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.setUserId($event), _vm.setUserName($event)
+                [
+                  _vm._l(_vm.users, function(item, index) {
+                    return _c("tr", { key: index }, [
+                      _c("th", { attrs: { scope: "row" } }, [
+                        _vm._v(_vm._s(index + 1))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("a", { attrs: { href: "/users/" + item.id } }, [
+                          _vm._v(_vm._s(item.name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.email))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              type: "button",
+                              "data-id": item.id,
+                              "data-name": item.name,
+                              "data-toggle": "modal",
+                              "data-target": "#editModal"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.setUserId($event), _vm.setUserName($event)
+                              }
                             }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          attrs: {
-                            type: "button",
-                            "data-id": item.id,
-                            "data-toggle": "modal",
-                            "data-target": "#deleteModal"
                           },
-                          on: {
-                            click: function($event) {
-                              return _vm.setUserId($event)
+                          [_vm._v("Edit")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            attrs: {
+                              type: "button",
+                              "data-id": item.id,
+                              "data-toggle": "modal",
+                              "data-target": "#deleteModal"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.setUserId($event)
+                              }
                             }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
+                          },
+                          [_vm._v("Delete")]
+                        )
+                      ])
                     ])
-                  ])
-                }),
-                0
+                  }),
+                  _vm._v(" "),
+                  _vm.users != null && _vm.users.length == 0
+                    ? _c("tr", [_vm._m(2)])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.loader ? _c("tr", [_vm._m(3)]) : _vm._e()
+                ],
+                2
               )
             ])
           ])
@@ -38666,9 +38739,9 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(4),
               _vm._v(" "),
-              _vm._m(3),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -38718,7 +38791,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(6),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("p", [_vm._v("Do you really want to edit the user?")]),
@@ -38838,10 +38911,28 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Edit")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Delete")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "5" } }, [
+      _c("strong", [_vm._v("No users")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-center", attrs: { colspan: "5" } }, [
+      _c("div", { staticClass: "spinner-border text-info" })
     ])
   },
   function() {
@@ -53046,6 +53137,9 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'; //const API_URL = process.env.API_URL || 'http://localhost:3000/api/v1'
+
+window.axios.defaults.baseURL = 'http://localhost:8000';
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
