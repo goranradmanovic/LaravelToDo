@@ -38213,8 +38213,7 @@ var render = function() {
                     ])
                   }),
                   _vm._v(" "),
-                  (_vm.tasks != null && _vm.tasks.length == 0) ||
-                  _vm.tasks != "undefined"
+                  _vm.tasks != null && _vm.tasks.length == 0
                     ? _c("tr", [_vm._m(2)])
                     : _vm._e(),
                   _vm._v(" "),
