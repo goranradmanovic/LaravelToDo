@@ -98,11 +98,11 @@
         this.form.user_id = this.userid; //Add user id to the form data
 
         //Send call to create task API
-        axios.post('/api/tasks', this.form).then(function (response) {
+        axios.post('/api/tasks', this.form).then(response => {
           this.infoMessage = response.data;
           this.onReset(evt);
-        }.bind(this))
-        .catch(function (error) {
+        })
+        .catch(error => {
           console.log(error);
         });
       },

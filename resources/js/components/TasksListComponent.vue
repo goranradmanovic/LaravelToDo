@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Task List from {{ username }}</div>
+                    <div class="card-header">Task List from <span class="lead">{{ username }}</span></div>
 
                     <div class="card-body">
                       <!-- User table -->
@@ -29,7 +29,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="(item, index) in items" :key="index">
+                          <tr v-for="(item, index) in tasks" :key="index">
                             <td>{{ index + 1 }}</td>
                             <td>
                               {{ item.description }} <br>
@@ -39,8 +39,14 @@
                             <td><button type="button" class="btn btn-primary" :data-id="item.id" :data-desc="item.description" :data-radiobtn="item.status" data-toggle="modal" data-target="#editModal" @click="setTaskId($event), setTaskOldData($event)">Edit</button></td>
                             <td><button type="button" class="btn btn-danger" :data-id="item.id" data-toggle="modal" data-target="#deleteModal" @click="setTaskId($event)">Delete</button></td>
                           </tr>
-                          <tr v-if="items.length == 0">
+                          <tr v-if="tasks != null && tasks.length == 0 || tasks != 'undefined'">
                             <td colspan="5"><strong>No tasks</strong></td>
+                          </tr>
+
+                          <tr v-if="loader">
+                            <td colspan="5" class="text-center">
+                              <div class="spinner-border text-info"></div>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -132,18 +138,20 @@
 
   export default {
     name: 'UserListComponent',
-    props: ['tasks', 'username'],
     data() {
       return {
-        items: [], //Arra of all users
-        taskId: null, //User ID
+        tasks: null, //Array of all user tasks
+        taskId: null, //Task ID
+        userId: null, //User ID
         form: {
           description: '', //Task description
-          status: null
+          status: null  	//Task status
         },
-        infoMessage: '',
+        infoMessage: '', //Info message after delete or update
         done: '<p class="font-weight-bold font-italic text-success">Done</p>',
-        todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>'
+        todo: '<p class="font-weight-bold font-italic text-warning">To Do</p>',
+        loader: false,
+        username: null //Name of the user
       }
     },
 
@@ -163,31 +171,46 @@
     methods: {
       //Gett all users from API
       getTasks() {
-          this.items = this.tasks;
+
+          this.loader = true;
+
+          let urlPathname = window.location.pathname.split('/');
+
+          this.userId = urlPathname[urlPathname.length - 1];
+
+          return axios.get(`api/users/${this.userId}`).then(response => {
+              return response.data;
+            }).catch(error => {
+              console.log(error);
+            });
       },
 
-      //Set User ID
+      //Set Task ID
       setTaskId(event) {
         this.taskId = event.target.dataset.id;
       },
 
-      //Set User name
-      setTaskOldData(event) {
-        this.form.description = event.target.dataset.desc;
-        this.form.status = event.target.dataset.radiobtn == '1' ? true : false;
+      setUserName(name) {
+        this.username = name;
       },
 
-      //Delete User from DB
+      //Set task old data
+      setTaskOldData(event) {
+        this.form.description = event.target.dataset.desc;
+        this.form.status = event.target.dataset.radiobtn == 'true' ? true : false;
+      },
+
+      //Delete Task from DB
       deleteTask() {
-        //Check if user ID is set
+        //Check if task ID is set
         if (this.taskId) {
-          axios.delete(`api/tasks/${this.taskId}`).then(function(response) {
+          axios.delete(`api/tasks/${this.taskId}`).then(response => {
             // handle success
 
             this.infoMessage = response.data;
 
             //Update user UI list
-            this.items = this.items.filter(item => {
+            this.tasks = this.tasks.filter(item => {
               return item.id != this.taskId;
             });
 
@@ -195,7 +218,7 @@
 
             $('#deleteModal').modal('hide');
 
-          }.bind(this))
+          })
           .catch(error => {
             // handle error
             console.log(error);
@@ -209,26 +232,25 @@
 
         //Check if task ID is set
         if (this.taskId) {
-          axios.patch(`api/tasks/${this.taskId}`, this.form).then(function(response) {
+          axios.patch(`api/tasks/${this.taskId}`, this.form).then(response => {
             // handle success
 
             this.infoMessage = response.data;
 
             //Update task UI list
-            this.items = this.items.filter(item => {
+            this.tasks = this.tasks.filter(item => {
               if (item.id == this.taskId) {
                 item.description = this.form.description;
                 item.status = this.form.status == 'true' ? true : false;
               }
 
-              return this.items;
+              return this.tasks;
             });
 
             this.taskId = null; //Set task ID to null
             this.form.description = ''; //Set task desc. to empty string
             $('#editModal').modal('hide');
-
-          }.bind(this))
+          })
           .catch(error => {
             // handle error
             console.log(error);
@@ -238,7 +260,12 @@
     },
 
     mounted() {
-      this.getTasks(); //Get list of all user when component is mounted
+      this.getTasks().then(data => {
+        this.tasks = data[0].tasks;
+
+        this.loader = false;
+        this.setUserName(data[0].name);
+      });
     },
   }
 </script>

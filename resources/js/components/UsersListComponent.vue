@@ -12,9 +12,9 @@
       </div>
 
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">User List</div>
+                    <div class="card-header">Users List</div>
 
                     <div class="card-body">
                       <!-- User table -->
@@ -23,16 +23,28 @@
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Email</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="(item, index) in items" :key="index">
+                          <tr v-for="(item, index) in users" :key="index">
                             <th scope="row">{{ index + 1 }}</th>
-                            <td><a :href="'/user-tasks?id=' + item.id">{{ item.name }}</a></td>
+                            <td><a :href="`/users/${item.id}`">{{ item.name }}</a></td>
+                            <td>{{ item.email }}</td>
                             <td><button type="button" class="btn btn-primary" :data-id="item.id" :data-name="item.name" data-toggle="modal" data-target="#editModal" @click="setUserId($event), setUserName($event)">Edit</button></td>
                             <td><button type="button" class="btn btn-danger" :data-id="item.id" data-toggle="modal" data-target="#deleteModal" @click="setUserId($event)">Delete</button></td>
+                          </tr>
+
+                          <tr v-if="users != null && users.length == 0">
+                            <td colspan="5"><strong>No users</strong></td>
+                          </tr>
+
+                          <tr v-if="loader">
+                            <td colspan="5" class="text-center">
+                              <div class="spinner-border text-info"></div>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -104,17 +116,15 @@
 
   export default {
     name: 'UserListComponent',
-    props: [
-      'users'
-    ],
     data() {
       return {
-        items: [], //Arra of all users
+        users: null, //Array of all users
         userId: null, //User ID
         form: {
           name: '' //User name
         },
-        infoMessage: ''
+        infoMessage: '',
+        loader: false
       }
     },
 
@@ -131,7 +141,13 @@
     methods: {
       //Gett all users from API
       getUsers() {
-          this.items = this.users;
+        this.loader = true;
+
+        return axios.get('api/users').then(response => {
+            return response.data;
+          }).catch(error => {
+            console.log(error);
+          });
       },
 
       //Set User ID
@@ -148,21 +164,20 @@
       deleteUser() {
         //Check if user ID is set
         if (this.userId) {
-          axios.delete(`api/users/${this.userId}`).then(function(response) {
+          axios.delete(`api/users/${this.userId}`).then(response => {
             // handle success
 
             this.infoMessage = response.data;
 
             //Update user UI list
-            this.items = this.items.filter(item => {
+            this.users = this.users.filter(item => {
               return item.id != this.userId;
             });
 
             this.userId = null; //Set user ID to null
 
             $('#deleteModal').modal('hide');
-
-          }.bind(this))
+          })
           .catch(error => {
             // handle error
             console.log(error);
@@ -176,25 +191,24 @@
 
         //Check if user ID is set
         if (this.userId) {
-          axios.patch(`api/users/${this.userId}`, {name: this.form.name}).then(function(response) {
+          axios.patch(`api/users/${this.userId}`, {name: this.form.name}).then(response => {
             // handle success
 
             this.infoMessage = response.data;
 
             //Update user UI list
-            this.items = this.items.filter(item => {
+            this.users = this.users.filter(item => {
               if (item.id == this.userId) {
                 item.name = this.form.name;
               }
 
-              return this.items;
+              return this.users;
             });
 
             this.userId = null; //Set user ID to null
             this.form.name = ''; //Set user name to empty string
             $('#editModal').modal('hide');
-
-          }.bind(this))
+          })
           .catch(error => {
             // handle error
             console.log(error);
@@ -204,7 +218,11 @@
     },
 
     mounted() {
-      this.getUsers(); //Get list of all user when component is mounted
+      //Get list of all user when component is mounted
+      this.getUsers().then(data => {
+        this.users = data;
+        this.loader = false;
+      });
     },
   }
 </script>
