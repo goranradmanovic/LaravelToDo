@@ -38,10 +38,10 @@
                             <a class="nav-link" href="{{ route('home') }}">User List</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('createtask') }}">Create Task</a>
+                            <a class="nav-link" href="{{ route('taskcreate') }}">Create Task</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('usertasks', ['id' => auth()->user()->id]) }}">Current User Tasks</a>
+                            <a class="nav-link" href="{{ route('user', ['id' => auth()->user()->id]) }}">Current User Tasks</a>
                         </li>
                       @endauth
                     </ul>
