@@ -18,6 +18,8 @@ class CreateTasksTable extends Migration
             $table->string('description');
             $table->boolean('status');
             $table->unsignedBigInteger('user_id');
+            //When user is deleted, then also delete all his tasks
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
