@@ -22,7 +22,7 @@
 
       <div class="row justify-content-center">
           <div class="col-md-12">
-            <userslist-component :users="{{ $users }}"></userslist-component>
+            <userslist-component></userslist-component>
           </div>
       </div>
   </div>
