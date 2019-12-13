@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Task;
 
 class TaskController extends Controller
@@ -14,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('task.create');
+
     }
 
     /**
@@ -24,7 +25,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+      return view('task.create');
     }
 
     /**
@@ -48,6 +49,7 @@ class TaskController extends Controller
         "user_id" => (int) $request->user_id,
       ]);
 
+      //Send response
       return response('Task is successfully created.', 200)->header('Content-Type', 'application/json'); //Send response
     }
 
@@ -59,7 +61,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -93,7 +95,8 @@ class TaskController extends Controller
 
       //Update user name in DB
       Task::where('id', $id)->update(['description' => $request->description, 'status' => $status]);
-      
+
+      //Send response
       return response('You are successfully edited the task!', 200)->header('Content-Type', 'application/json'); //Send response
     }
 
@@ -105,8 +108,8 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-      //Delete the user
-      Task::where('id', $id)->delete();
+      //Delete the task
+      Task::find($id)->delete();
 
       //Send response
       return response('You are successfully deleted the task!', 200)->header('Content-Type', 'application/json');

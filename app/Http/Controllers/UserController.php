@@ -12,12 +12,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-      $userTasks = User::find($request->id)->tasks;
-      $userName = User::find($request->id)->name;
-
-      return view('user.index', compact('userTasks', 'userName'));
+      return User::get(['id', 'name', 'email']); //Get all users with this colums
     }
 
     /**
@@ -27,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.index');
     }
 
     /**
@@ -49,7 +46,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        //Get user and users tasks
+        return User::where('id', $id)->with('tasks')->get(['id', 'name']);
     }
 
     /**
@@ -73,12 +71,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
       //Update the current user
-      $request->validate([
-        "name" => "required"
-      ]);
+      $request->validate(["name" => "required"]);
 
       //Update user name in DB
       User::where('id', $id)->update(['name' => $request->name]);
+
+      //Send response
       return response('You are successfully edited the user!', 200)->header('Content-Type', 'application/json'); //Send response
     }
 
@@ -90,13 +88,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-      $user = new User();
-
-      //Delete all users tasks before deleting the user
-      $user->find($id)->tasks()->delete();
-
-      //Delete the user
-      $user->where('id', $id)->delete();
+      User::find($id)->delete(); //Delete user and all his tasks
 
       //Send response
       return response('You are successfully deleted the user and all related user tasks!', 200)->header('Content-Type', 'application/json');
