@@ -11,6 +11,10 @@
 |
 */
 
+Route::fallback(function () {
+    return abort(404); //default 404
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,5 +22,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/user-tasks', 'UserController@index')->name('usertasks');
-Route::get('/create-task', 'TaskController@index')->name('createtask');
+Route::get('/users/{id}', 'UserController@create')->name('user');
+Route::get('tasks/create', 'TaskController@create')->name('taskcreate');
