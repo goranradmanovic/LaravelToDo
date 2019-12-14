@@ -4,19 +4,11 @@
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-md-12">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              @if (session('status'))
-                  <div class="alert alert-success" role="alert">
-                      {{ session('status') }}
-                  </div>
-              @endif
+            @if (session('status'))
+                <infomessage-component :message="{{ session('status') }}" :alert-type="'alert-success'"></infomessage-component>
+            @endif
 
-              <strong>You are logged in!</strong>
-
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+            <infomessage-component :message="'You are logged in!'" :alert-type="'alert-success'"></infomessage-component>
           </div>
       </div>
 

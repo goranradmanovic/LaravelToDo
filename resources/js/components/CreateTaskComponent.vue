@@ -1,16 +1,7 @@
 <template>
     <div class="container">
 
-      <div class="row justify-content-center">
-        <div class="col-md-12">
-          <div class="alert alert-primary alert-dismissible fade show" role="alert" v-if="infoMessage">
-            <strong ref="alert-content">{{ infoMessage }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        </div>
-      </div>
+      <infomessage-component v-if="infoMessage" :message="infoMessage" :alert-type="'alert-primary'"></infomessage-component>
 
       <div class="card">
           <div class="card-header">Create Task</div>
