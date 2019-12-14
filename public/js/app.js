@@ -1894,15 +1894,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CreateTaskComponent',
@@ -1964,6 +1955,49 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfoMessageComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfoMessageComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'InfoMessageComponent',
+  props: ['message', 'alertType'],
+  //alert-type
+  data: function data() {
+    return {};
+  },
+  methods: {
+    autoCloseNotification: function autoCloseNotification() {
+      setTimeout(function (_) {
+        $('.alert').alert('close');
+      }, 4000);
+    }
+  },
+  mounted: function mounted() {
+    this.autoCloseNotification();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TasksListComponent.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TasksListComponent.vue?vue&type=script&lang=js& ***!
@@ -1975,14 +2009,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2251,14 +2277,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -37868,201 +37886,232 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _vm.infoMessage
-          ? _c(
-              "div",
-              {
-                staticClass: "alert alert-primary alert-dismissible fade show",
-                attrs: { role: "alert" }
-              },
-              [
-                _c("strong", { ref: "alert-content" }, [
-                  _vm._v(_vm._s(_vm.infoMessage))
-                ]),
-                _vm._v(" "),
-                _vm._m(0)
-              ]
-            )
-          : _vm._e()
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [_vm._v("Create Task")]),
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _vm.infoMessage
+        ? _c("infomessage-component", {
+            attrs: { message: _vm.infoMessage, "alert-type": "alert-primary" }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                return _vm.onSubmit($event)
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [_vm._v("Create Task")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  return _vm.onSubmit($event)
+                }
               }
-            }
-          },
-          [
-            _c("div", { staticClass: "form-group row" }, [
-              _c("label", { attrs: { for: "exampleFormControlTextarea1" } }, [
-                _vm._v("Task description")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.description,
-                      expression: "form.description"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { id: "exampleFormControlTextarea1", rows: "5" },
-                  domProps: { value: _vm.form.description },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "description", $event.target.value)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                !_vm.$v.form.description.required
-                  ? _c("div", { staticClass: "text-danger" }, [
-                      _c("p", [_vm._v("Field is required")])
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                !_vm.$v.form.description.minLength
-                  ? _c("div", { staticClass: "text-danger" }, [
-                      _c("p", [
-                        _vm._v(
-                          "Name must have at least " +
-                            _vm._s(
-                              _vm.$v.form.description.$params.minLength.min
-                            ) +
-                            " letters."
-                        )
-                      ])
-                    ])
-                  : _vm._e()
-              ])
-            ]),
-            _vm._v(" "),
-            _c("fieldset", { staticClass: "form-group" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("legend", { staticClass: "col-form-label col-sm-2 pt-0" }, [
-                  _vm._v("Status")
+            },
+            [
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { attrs: { for: "exampleFormControlTextarea1" } }, [
+                  _vm._v("Task description")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-10" }, [
-                  _c("div", { staticClass: "form-check" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.status,
-                          expression: "form.status"
-                        }
-                      ],
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        name: "gridRadios",
-                        id: "gridRadios1",
-                        value: "true",
-                        required: ""
-                      },
-                      domProps: { checked: _vm._q(_vm.form.status, "true") },
-                      on: {
-                        change: function($event) {
-                          return _vm.$set(_vm.form, "status", "true")
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
+                  _c("textarea", {
+                    directives: [
                       {
-                        staticClass: "form-check-label",
-                        attrs: { for: "gridRadios1" }
-                      },
-                      [_vm._v("Done")]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-check" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.status,
-                          expression: "form.status"
-                        }
-                      ],
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        name: "gridRadios",
-                        id: "gridRadios2",
-                        value: "false",
-                        required: ""
-                      },
-                      domProps: { checked: _vm._q(_vm.form.status, "false") },
-                      on: {
-                        change: function($event) {
-                          return _vm.$set(_vm.form, "status", "false")
-                        }
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.description,
+                        expression: "form.description"
                       }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "gridRadios2" }
-                      },
-                      [_vm._v("ToDo")]
-                    )
-                  ]),
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "exampleFormControlTextarea1", rows: "5" },
+                    domProps: { value: _vm.form.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "description", $event.target.value)
+                      }
+                    }
+                  }),
                   _vm._v(" "),
-                  !_vm.$v.form.status.required
+                  !_vm.$v.form.description.required
                     ? _c("div", { staticClass: "text-danger" }, [
                         _c("p", [_vm._v("Field is required")])
                       ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.$v.form.description.minLength
+                    ? _c("div", { staticClass: "text-danger" }, [
+                        _c("p", [
+                          _vm._v(
+                            "Name must have at least " +
+                              _vm._s(
+                                _vm.$v.form.description.$params.minLength.min
+                              ) +
+                              " letters."
+                          )
+                        ])
+                      ])
                     : _vm._e()
                 ])
+              ]),
+              _vm._v(" "),
+              _c("fieldset", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c(
+                    "legend",
+                    { staticClass: "col-form-label col-sm-2 pt-0" },
+                    [_vm._v("Status")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c("div", { staticClass: "form-check" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.status,
+                            expression: "form.status"
+                          }
+                        ],
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          name: "gridRadios",
+                          id: "gridRadios1",
+                          value: "true",
+                          required: ""
+                        },
+                        domProps: { checked: _vm._q(_vm.form.status, "true") },
+                        on: {
+                          change: function($event) {
+                            return _vm.$set(_vm.form, "status", "true")
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "gridRadios1" }
+                        },
+                        [_vm._v("Done")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-check" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.status,
+                            expression: "form.status"
+                          }
+                        ],
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          name: "gridRadios",
+                          id: "gridRadios2",
+                          value: "false",
+                          required: ""
+                        },
+                        domProps: { checked: _vm._q(_vm.form.status, "false") },
+                        on: {
+                          change: function($event) {
+                            return _vm.$set(_vm.form, "status", "false")
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "gridRadios2" }
+                        },
+                        [_vm._v("ToDo")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    !_vm.$v.form.status.required
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _c("p", [_vm._v("Field is required")])
+                        ])
+                      : _vm._e()
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: {
+                        type: "submit",
+                        disabled:
+                          !_vm.$v.form.description.minLength ||
+                          !_vm.$v.form.description.required ||
+                          !_vm.$v.form.status.required
+                      }
+                    },
+                    [_vm._v("Submit")]
+                  )
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: {
-                      type: "submit",
-                      disabled:
-                        !_vm.$v.form.description.minLength ||
-                        !_vm.$v.form.description.required ||
-                        !_vm.$v.form.status.required
-                    }
-                  },
-                  [_vm._v("Submit")]
-                )
-              ])
-            ])
-          ]
-        )
+            ]
+          )
+        ])
       ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfoMessageComponent.vue?vue&type=template&id=7158f06f&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfoMessageComponent.vue?vue&type=template&id=7158f06f& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c(
+        "div",
+        {
+          class: [_vm.alertType, "alert alert-dismissible fade show"],
+          attrs: { role: "alert" }
+        },
+        [
+          _c("strong", { ref: "alert-content" }, [_vm._v(_vm._s(_vm.message))]),
+          _vm._v(" "),
+          _vm._m(0)
+        ]
+      )
     ])
   ])
 }
@@ -38106,403 +38155,383 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _vm.infoMessage
-          ? _c(
-              "div",
-              {
-                staticClass: "alert alert-primary alert-dismissible fade show",
-                attrs: { role: "alert" }
-              },
-              [
-                _c("strong", { ref: "alert-content" }, [
-                  _vm._v(_vm._s(_vm.infoMessage))
-                ]),
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _vm.infoMessage
+        ? _c("infomessage-component", {
+            attrs: { message: _vm.infoMessage, "alert-type": "alert-primary" }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v("Task List from "),
+              _c("span", { staticClass: "lead" }, [
+                _vm._v(_vm._s(_vm.username))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("table", { staticClass: "table table-striped" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _vm._m(0)
-              ]
-            )
-          : _vm._e()
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Task List from "),
-            _c("span", { staticClass: "lead" }, [_vm._v(_vm._s(_vm.username))])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("table", { staticClass: "table table-striped" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                [
-                  _vm._l(_vm.tasks, function(item, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", [_vm._v(_vm._s(index + 1))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                          " +
-                            _vm._s(item.description) +
-                            " "
-                        ),
-                        _c("br"),
+                _c(
+                  "tbody",
+                  [
+                    _vm._l(_vm.tasks, function(item, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
                         _vm._v(" "),
-                        _c("small", { staticClass: "text-secondary" }, [
-                          _vm._v(_vm._s(item.created_at))
+                        _c("td", [
+                          _vm._v(
+                            "\n                          " +
+                              _vm._s(item.description) +
+                              " "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("small", { staticClass: "text-secondary" }, [
+                            _vm._v(_vm._s(item.created_at))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            innerHTML: _vm._s(item.status ? _vm.done : _vm.todo)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: {
+                                type: "button",
+                                "data-id": item.id,
+                                "data-desc": item.description,
+                                "data-radiobtn": item.status,
+                                "data-toggle": "modal",
+                                "data-target": "#editModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.setTaskId($event),
+                                    _vm.setTaskOldData($event)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: {
+                                type: "button",
+                                "data-id": item.id,
+                                "data-toggle": "modal",
+                                "data-target": "#deleteModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.setTaskId($event)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: {
-                          innerHTML: _vm._s(item.status ? _vm.done : _vm.todo)
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            attrs: {
-                              type: "button",
-                              "data-id": item.id,
-                              "data-desc": item.description,
-                              "data-radiobtn": item.status,
-                              "data-toggle": "modal",
-                              "data-target": "#editModal"
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.setTaskId($event),
-                                  _vm.setTaskOldData($event)
-                              }
-                            }
-                          },
-                          [_vm._v("Edit")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: {
-                              type: "button",
-                              "data-id": item.id,
-                              "data-toggle": "modal",
-                              "data-target": "#deleteModal"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.setTaskId($event)
-                              }
-                            }
-                          },
-                          [_vm._v("Delete")]
-                        )
                       ])
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _vm.tasks != null && _vm.tasks.length == 0
-                    ? _c("tr", [_vm._m(2)])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.loader ? _c("tr", [_vm._m(3)]) : _vm._e()
-                ],
-                2
-              )
+                    }),
+                    _vm._v(" "),
+                    _vm.tasks != null && _vm.tasks.length == 0
+                      ? _c("tr", [_vm._m(1)])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.loader ? _c("tr", [_vm._m(2)]) : _vm._e()
+                  ],
+                  2
+                )
+              ])
             ])
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "deleteModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _vm._m(5),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Close")]
-                ),
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "deleteModal",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(3),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteTask()
-                      }
-                    }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "editModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v("Do you really want to edit the task?")]),
+                _vm._m(4),
                 _vm._v(" "),
-                _c("form", [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "label",
-                      { attrs: { for: "exampleFormControlInput1" } },
-                      [_vm._v("Task Description")]
-                    ),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.description,
-                          expression: "form.description"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        required: "",
-                        id: "exampleFormControlInput1",
-                        placeholder: "John Doe",
-                        rows: "5"
-                      },
-                      domProps: { value: _vm.form.description },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "description", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    !_vm.$v.form.description.required
-                      ? _c("div", { staticClass: "text-danger" }, [
-                          _c("p", [_vm._v("Field is required")])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.$v.form.description.minLength
-                      ? _c("div", { staticClass: "text-danger" }, [
-                          _c("p", [
-                            _vm._v(
-                              "Name must have at least " +
-                                _vm._s(
-                                  _vm.$v.form.description.$params.minLength.min
-                                ) +
-                                " letters."
-                            )
-                          ])
-                        ])
-                      : _vm._e()
-                  ]),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Close")]
+                  ),
                   _vm._v(" "),
-                  _c("fieldset", { staticClass: "form-group" }, [
-                    _c("div", { staticClass: "row" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteTask()
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "editModal",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("p", [_vm._v("Do you really want to edit the task?")]),
+                  _vm._v(" "),
+                  _c("form", [
+                    _c("div", { staticClass: "form-group" }, [
                       _c(
-                        "legend",
-                        { staticClass: "col-form-label col-sm-2 pt-0" },
-                        [_vm._v("Status")]
+                        "label",
+                        { attrs: { for: "exampleFormControlInput1" } },
+                        [_vm._v("Task Description")]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-10" }, [
-                        _c("div", { staticClass: "form-check" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.status,
-                                expression: "form.status"
-                              }
-                            ],
-                            staticClass: "form-check-input",
-                            attrs: {
-                              type: "radio",
-                              name: "gridRadios",
-                              id: "gridRadios1",
-                              value: "true",
-                              required: ""
-                            },
-                            domProps: {
-                              checked: _vm._q(_vm.form.status, "true")
-                            },
-                            on: {
-                              change: function($event) {
-                                return _vm.$set(_vm.form, "status", "true")
-                              }
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.description,
+                            expression: "form.description"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          required: "",
+                          id: "exampleFormControlInput1",
+                          placeholder: "John Doe",
+                          rows: "5"
+                        },
+                        domProps: { value: _vm.form.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
                             }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "label",
-                            {
-                              staticClass: "form-check-label",
-                              attrs: { for: "gridRadios1" }
-                            },
-                            [_vm._v("Done")]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-check" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.status,
-                                expression: "form.status"
-                              }
-                            ],
-                            staticClass: "form-check-input",
-                            attrs: {
-                              type: "radio",
-                              name: "gridRadios",
-                              id: "gridRadios2",
-                              value: "false",
-                              required: ""
-                            },
-                            domProps: {
-                              checked: _vm._q(_vm.form.status, "false")
-                            },
-                            on: {
-                              change: function($event) {
-                                return _vm.$set(_vm.form, "status", "false")
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "label",
-                            {
-                              staticClass: "form-check-label",
-                              attrs: { for: "gridRadios2" }
-                            },
-                            [_vm._v("ToDo")]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        !_vm.$v.form.status.required
-                          ? _c("div", { staticClass: "text-danger" }, [
-                              _c("p", [_vm._v("Field is required")])
+                            _vm.$set(
+                              _vm.form,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      !_vm.$v.form.description.required
+                        ? _c("div", { staticClass: "text-danger" }, [
+                            _c("p", [_vm._v("Field is required")])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.$v.form.description.minLength
+                        ? _c("div", { staticClass: "text-danger" }, [
+                            _c("p", [
+                              _vm._v(
+                                "Name must have at least " +
+                                  _vm._s(
+                                    _vm.$v.form.description.$params.minLength
+                                      .min
+                                  ) +
+                                  " letters."
+                              )
                             ])
-                          : _vm._e()
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("fieldset", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "legend",
+                          { staticClass: "col-form-label col-sm-2 pt-0" },
+                          [_vm._v("Status")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-10" }, [
+                          _c("div", { staticClass: "form-check" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.status,
+                                  expression: "form.status"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: {
+                                type: "radio",
+                                name: "gridRadios",
+                                id: "gridRadios1",
+                                value: "true",
+                                required: ""
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.status, "true")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.form, "status", "true")
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "gridRadios1" }
+                              },
+                              [_vm._v("Done")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-check" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.status,
+                                  expression: "form.status"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: {
+                                type: "radio",
+                                name: "gridRadios",
+                                id: "gridRadios2",
+                                value: "false",
+                                required: ""
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.status, "false")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.form, "status", "false")
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "gridRadios2" }
+                              },
+                              [_vm._v("ToDo")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          !_vm.$v.form.status.required
+                            ? _c("div", { staticClass: "text-danger" }, [
+                                _c("p", [_vm._v("Field is required")])
+                              ])
+                            : _vm._e()
+                        ])
                       ])
                     ])
                   ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Close")]
-                ),
+                ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.editTask($event)
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.editTask($event)
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Edit")]
-                )
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
               ])
-            ])
-          ]
-        )
-      ]
-    )
-  ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -38617,293 +38646,268 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _vm.infoMessage
-          ? _c(
-              "div",
-              {
-                staticClass: "alert alert-primary alert-dismissible fade show",
-                attrs: { role: "alert" }
-              },
-              [
-                _c("strong", { ref: "alert-content" }, [
-                  _vm._v(_vm._s(_vm.infoMessage))
-                ]),
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _vm.infoMessage
+        ? _c("infomessage-component", {
+            attrs: { message: _vm.infoMessage, "alert-type": "alert-primary" }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-10" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [_vm._v("Users List")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("table", { staticClass: "table table-striped" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _vm._m(0)
-              ]
-            )
-          : _vm._e()
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-10" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [_vm._v("Users List")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("table", { staticClass: "table table-striped" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                [
-                  _vm._l(_vm.users, function(item, index) {
-                    return _c("tr", { key: index }, [
-                      _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(_vm._s(index + 1))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("a", { attrs: { href: "/users/" + item.id } }, [
-                          _vm._v(_vm._s(item.name))
+                _c(
+                  "tbody",
+                  [
+                    _vm._l(_vm.users, function(item, index) {
+                      return _c("tr", { key: index }, [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(index + 1))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("a", { attrs: { href: "/users/" + item.id } }, [
+                            _vm._v(_vm._s(item.name))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.email))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: {
+                                type: "button",
+                                "data-id": item.id,
+                                "data-name": item.name,
+                                "data-toggle": "modal",
+                                "data-target": "#editModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.setUserId($event), _vm.setUserName($event)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: {
+                                type: "button",
+                                "data-id": item.id,
+                                "data-toggle": "modal",
+                                "data-target": "#deleteModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.setUserId($event)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.email))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            attrs: {
-                              type: "button",
-                              "data-id": item.id,
-                              "data-name": item.name,
-                              "data-toggle": "modal",
-                              "data-target": "#editModal"
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.setUserId($event), _vm.setUserName($event)
-                              }
-                            }
-                          },
-                          [_vm._v("Edit")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: {
-                              type: "button",
-                              "data-id": item.id,
-                              "data-toggle": "modal",
-                              "data-target": "#deleteModal"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.setUserId($event)
-                              }
-                            }
-                          },
-                          [_vm._v("Delete")]
-                        )
                       ])
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _vm.users != null && _vm.users.length == 0
-                    ? _c("tr", [_vm._m(2)])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.loader ? _c("tr", [_vm._m(3)]) : _vm._e()
-                ],
-                2
-              )
+                    }),
+                    _vm._v(" "),
+                    _vm.users != null && _vm.users.length == 0
+                      ? _c("tr", [_vm._m(1)])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.loader ? _c("tr", [_vm._m(2)]) : _vm._e()
+                  ],
+                  2
+                )
+              ])
             ])
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "deleteModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _vm._m(5),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Close")]
-                ),
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "deleteModal",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(3),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteUser()
-                      }
-                    }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "editModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v("Do you really want to edit the user?")]),
+                _vm._m(4),
                 _vm._v(" "),
-                _c("form", [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "label",
-                      { attrs: { for: "exampleFormControlInput1" } },
-                      [_vm._v("User Name")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.name,
-                          expression: "form.name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        required: "",
-                        id: "exampleFormControlInput1",
-                        placeholder: "John Doe"
-                      },
-                      domProps: { value: _vm.form.name },
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button" },
                       on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "name", $event.target.value)
+                        click: function($event) {
+                          return _vm.deleteUser()
                         }
                       }
-                    }),
-                    _vm._v(" "),
-                    !_vm.$v.form.name.required
-                      ? _c("div", { staticClass: "text-danger" }, [
-                          _c("p", [_vm._v("Field is required")])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.$v.form.name.minLength
-                      ? _c("div", { staticClass: "text-danger" }, [
-                          _c("p", [
-                            _vm._v(
-                              "Name must have at least " +
-                                _vm._s(_vm.$v.form.name.$params.minLength.min) +
-                                " letters."
-                            )
-                          ])
-                        ])
-                      : _vm._e()
-                  ])
+                    },
+                    [_vm._v("Delete")]
+                  )
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Close")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.editUser($event)
-                      }
-                    }
-                  },
-                  [_vm._v("Edit")]
-                )
               ])
-            ])
-          ]
-        )
-      ]
-    )
-  ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "editModal",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("p", [_vm._v("Do you really want to edit the user?")]),
+                  _vm._v(" "),
+                  _c("form", [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        { attrs: { for: "exampleFormControlInput1" } },
+                        [_vm._v("User Name")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.name,
+                            expression: "form.name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          required: "",
+                          id: "exampleFormControlInput1",
+                          placeholder: "John Doe"
+                        },
+                        domProps: { value: _vm.form.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "name", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      !_vm.$v.form.name.required
+                        ? _c("div", { staticClass: "text-danger" }, [
+                            _c("p", [_vm._v("Field is required")])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.$v.form.name.minLength
+                        ? _c("div", { staticClass: "text-danger" }, [
+                            _c("p", [
+                              _vm._v(
+                                "Name must have at least " +
+                                  _vm._s(
+                                    _vm.$v.form.name.$params.minLength.min
+                                  ) +
+                                  " letters."
+                              )
+                            ])
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.editUser($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -53099,6 +53103,7 @@ Vue.use(vuelidate__WEBPACK_IMPORTED_MODULE_0___default.a);
 Vue.component('userslist-component', __webpack_require__(/*! ./components/UsersListComponent.vue */ "./resources/js/components/UsersListComponent.vue")["default"]);
 Vue.component('createtask-component', __webpack_require__(/*! ./components/CreateTaskComponent.vue */ "./resources/js/components/CreateTaskComponent.vue")["default"]);
 Vue.component('taskslist-component', __webpack_require__(/*! ./components/TasksListComponent.vue */ "./resources/js/components/TasksListComponent.vue")["default"]);
+Vue.component('infomessage-component', __webpack_require__(/*! ./components/InfoMessageComponent.vue */ "./resources/js/components/InfoMessageComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -53224,6 +53229,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateTaskComponent_vue_vue_type_template_id_95a6757e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateTaskComponent_vue_vue_type_template_id_95a6757e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/InfoMessageComponent.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/InfoMessageComponent.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InfoMessageComponent_vue_vue_type_template_id_7158f06f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InfoMessageComponent.vue?vue&type=template&id=7158f06f& */ "./resources/js/components/InfoMessageComponent.vue?vue&type=template&id=7158f06f&");
+/* harmony import */ var _InfoMessageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InfoMessageComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/InfoMessageComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InfoMessageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InfoMessageComponent_vue_vue_type_template_id_7158f06f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InfoMessageComponent_vue_vue_type_template_id_7158f06f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InfoMessageComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InfoMessageComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/InfoMessageComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoMessageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InfoMessageComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfoMessageComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoMessageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InfoMessageComponent.vue?vue&type=template&id=7158f06f&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/InfoMessageComponent.vue?vue&type=template&id=7158f06f& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoMessageComponent_vue_vue_type_template_id_7158f06f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InfoMessageComponent.vue?vue&type=template&id=7158f06f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfoMessageComponent.vue?vue&type=template&id=7158f06f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoMessageComponent_vue_vue_type_template_id_7158f06f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfoMessageComponent_vue_vue_type_template_id_7158f06f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
