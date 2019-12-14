@@ -1984,16 +1984,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
-  methods: {
-    autoCloseNotification: function autoCloseNotification() {
-      setTimeout(function (_) {
-        $('.alert').alert('close');
-      }, 4000);
-    }
-  },
-  mounted: function mounted() {
-    this.autoCloseNotification();
-  }
+  methods: {},
+  mounted: function mounted() {}
 });
 
 /***/ }),
