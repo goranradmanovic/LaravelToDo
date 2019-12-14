@@ -22,15 +22,11 @@
     },
 
     methods: {
-      autoCloseNotification() {
-        setTimeout(_ => {
-           $('.alert').alert('close');
-        }, 4000);
-      }
+
     },
 
     mounted() {
-      this.autoCloseNotification();
+
     }
   }
 </script>
