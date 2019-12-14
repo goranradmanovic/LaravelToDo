@@ -26,6 +26,7 @@ Vue.use(Vuelidate);
 Vue.component('userslist-component', require('./components/UsersListComponent.vue').default);
 Vue.component('createtask-component', require('./components/CreateTaskComponent.vue').default);
 Vue.component('taskslist-component', require('./components/TasksListComponent.vue').default);
+Vue.component('infomessage-component', require('./components/InfoMessageComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
