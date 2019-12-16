@@ -4,7 +4,7 @@
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-md-8">
-            <createtask-component :userid="{{ auth()->user()->id }}"></createtask-component>
+            <createtask-component :user-id="{{ auth()->user()->id }}"></createtask-component>
           </div>
       </div>
   </div>
