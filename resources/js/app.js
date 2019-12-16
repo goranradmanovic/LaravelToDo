@@ -7,7 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import { store } from './store/store';
 import Vuelidate from 'vuelidate';
 
 Vue.use(Vuelidate);
@@ -27,7 +27,10 @@ Vue.component('userslist-component', require('./components/UsersListComponent.vu
 Vue.component('createtask-component', require('./components/CreateTaskComponent.vue').default);
 Vue.component('taskslist-component', require('./components/TasksListComponent.vue').default);
 Vue.component('infomessage-component', require('./components/InfoMessageComponent.vue').default);
-
+Vue.component('deleteuser-component', require('./components/DeleteUserComponent.vue').default);
+Vue.component('edituser-component', require('./components/EditUserComponent.vue').default);
+Vue.component('deletetask-component', require('./components/DeleteTaskComponent.vue').default);
+Vue.component('edittask-component', require('./components/EditTaskComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -36,4 +39,5 @@ Vue.component('infomessage-component', require('./components/InfoMessageComponen
 
 const app = new Vue({
     el: '#app',
+    store
 });
