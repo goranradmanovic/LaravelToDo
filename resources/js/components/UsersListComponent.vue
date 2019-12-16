@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-
+       <!-- Info notification message -->
        <infomessage-component v-if="infoMessage" :message="infoMessage" :alert-type="'alert-primary'"></infomessage-component>
 
         <div class="row justify-content-center">
@@ -25,8 +25,8 @@
                             <th scope="row">{{ index + 1 }}</th>
                             <td><a :href="`/users/${item.id}`">{{ item.name }}</a></td>
                             <td>{{ item.email }}</td>
-                            <td><button type="button" class="btn btn-primary" :data-id="item.id" :data-name="item.name" data-toggle="modal" data-target="#editModal" @click="setUserId($event), setUserName($event)">Edit</button></td>
-                            <td><button type="button" class="btn btn-danger" :data-id="item.id" data-toggle="modal" data-target="#deleteModal" @click="setUserId($event)">Delete</button></td>
+                            <td><button type="button" class="btn btn-primary" :data-id="item.id" :data-name="item.name" data-toggle="modal" data-target="#editModal" @click="setUserData($event), emmitEditEvent()">Edit</button></td>
+                            <td><button type="button" class="btn btn-danger" :data-id="item.id" :data-name="item.name" data-toggle="modal" data-target="#deleteModal" @click="setUserData($event), emmitDeleteUserEvent()">Delete</button></td>
                           </tr>
 
                           <tr v-if="users != null && users.length == 0">
@@ -45,176 +45,65 @@
             </div>
         </div>
 
-        <!-- Delete Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Do you really want to delete the user?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" @click="deleteUser()">Delete</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Edit Modal -->
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Do you really want to edit the user?</p>
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">User Name</label>
-                    <input type="text" v-model="form.name" class="form-control" required id="exampleFormControlInput1" placeholder="John Doe">
-
-                    <div v-if="!$v.form.name.required" class="text-danger">
-                      <p>Field is required</p>
-                    </div>
-
-                    <div v-if="!$v.form.name.minLength" class="text-danger">
-                      <p>Name must have at least {{$v.form.name.$params.minLength.min}} letters.</p>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" @click="editUser($event)">Edit</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Edit user modal -->
+       <edituser-component></edituser-component>
+       <!-- Delete user modal -->
+       <deleteuser-component></deleteuser-component>
     </div>
 </template>
 
 <script>
-  import { required, minLength } from 'vuelidate/lib/validators';
+  import { EventBus } from '../bus/events.js';
+  import { mapActions, mapGetters } from 'vuex';
 
   export default {
     name: 'UserListComponent',
     data() {
       return {
-        users: null, //Array of all users
-        userId: null, //User ID
-        form: {
-          name: '' //User name
-        },
-        infoMessage: '',
-        loader: false
+        //User object for formating data
+        user: {
+          id: null,
+          name: null
+        }
       }
     },
 
-    //User name validation
-    validations: {
-      form: {
-        name: {
-          required,
-          minLength: minLength(3)
-        },
-      }
+    computed: {
+      ...mapGetters([
+        'users',
+        'infoMessage',
+        'loader',
+      ])
     },
 
     methods: {
-      //Gett all users from API
-      getUsers() {
-        this.loader = true;
 
-        return axios.get('api/users').then(response => {
-            return response.data;
-          }).catch(error => {
-            console.log(error);
-          });
+      //Set User data
+      setUserData(event) {
+        this.user.id = event.target.dataset.id;
+        this.user.name = event.target.dataset.name;
       },
 
-      //Set User ID
-      setUserId(event) {
-        this.userId = event.target.dataset.id;
+      //Emit event for editing user and pass user name
+      emmitEditEvent() {
+        EventBus.$emit('edit', this.user);
       },
 
-      //Set User name
-      setUserName(event) {
-        this.form.name = event.target.dataset.name;
+      //Emit event for editing user and pass user name
+      emmitDeleteUserEvent() {
+        EventBus.$emit('deleteUser', this.user.id);
       },
 
-      //Delete User from DB
-      deleteUser() {
-        //Check if user ID is set
-        if (this.userId) {
-          axios.delete(`api/users/${this.userId}`).then(response => {
-            // handle success
+      ...mapActions([
+        'usersInformations',
+        'deleteSingleUserInformation',
 
-            this.infoMessage = response.data;
-
-            //Update user UI list
-            this.users = this.users.filter(item => {
-              return item.id != this.userId;
-            });
-
-            this.userId = null; //Set user ID to null
-
-            $('#deleteModal').modal('hide');
-          })
-          .catch(error => {
-            // handle error
-            console.log(error);
-          });
-        }
-      },
-
-      //Edit current user
-      editUser(event) {
-        event.preventDefault(); //Prevent default form behaivor
-
-        //Check if user ID is set
-        if (this.userId) {
-          axios.patch(`api/users/${this.userId}`, {name: this.form.name}).then(response => {
-            // handle success
-
-            this.infoMessage = response.data;
-
-            //Update user UI list
-            this.users = this.users.filter(item => {
-              if (item.id == this.userId) {
-                item.name = this.form.name;
-              }
-
-              return this.users;
-            });
-
-            this.userId = null; //Set user ID to null
-            this.form.name = ''; //Set user name to empty string
-            $('#editModal').modal('hide');
-          })
-          .catch(error => {
-            // handle error
-            console.log(error);
-          });
-        }
-      }
+      ])
     },
 
     mounted() {
-      //Get list of all user when component is mounted
-      this.getUsers().then(data => {
-        this.users = data;
-        this.loader = false;
-      });
+      //Get all users from API
+      this.usersInformations();
     },
   }
 </script>

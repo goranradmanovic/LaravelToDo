@@ -7,7 +7,7 @@
           <div class="card-header">Create Task</div>
 
           <div class="card-body">
-            <form @submit="onSubmit($event)">
+            <form @submit.prevent="setFormUserId(), createUserTask(form)">
               <div class="form-group row">
                 <label for="exampleFormControlTextarea1">Task description</label>
                 <div class="col-sm-10">
@@ -53,20 +53,15 @@
 </template>
 
 <script>
-
+  import { mapActions, mapGetters } from 'vuex';
   import { required, minLength } from 'vuelidate/lib/validators';
 
   export default {
     name: 'CreateTaskComponent',
-    props: ['userid'],
+    props: ['userId'],
     data() {
       return {
-        form: {
-          description: '',
-          status: null
-        },
-        show: true,
-        infoMessage: ''
+
       }
     },
 
@@ -82,36 +77,22 @@
       }
     },
 
+    computed: {
+      ...mapGetters([
+        'infoMessage',
+        'form'
+      ])
+    },
+
     methods: {
-      onSubmit(evt) {
-        evt.preventDefault()
 
-        this.form.user_id = this.userid; //Add user id to the form data
-
-        //Send call to create task API
-        axios.post('/api/tasks', this.form).then(response => {
-          this.infoMessage = response.data;
-          this.onReset(evt);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      setFormUserId() {
+        this.form.user_id = this.userId;
       },
 
-      //Reset the form
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.description = '';
-        this.form.status = '';
-        this.form.user_id = '';
-
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      }
-    }
+      ...mapActions([
+        'createUserTask'
+      ]),
+    },
   }
 </script>
